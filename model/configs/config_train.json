@@ -1,0 +1,16 @@
+{
+  "per_device_train_batch_size": 2,
+  "per_device_eval_batch_size": 2,
+  "gradient_accumulation_steps": 4,
+  "gradient_checkpointing": true,  
+  "num_train_epochs": 6,
+  "learning_rate": 1e-4,
+  "optim": "adamw_torch",
+  "save_steps": 200,
+  "eval_steps": 200,
+  "logging_steps": 10,
+  "save_total_limit": 3,
+  "output_dir": "/root/autodl-tmp/data/checkpoints",
+  "warmup_ratio": 0.1,
+  "lr_scheduler_type": "cosine"
+}

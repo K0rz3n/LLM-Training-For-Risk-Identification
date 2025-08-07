@@ -1,0 +1,9 @@
+compute_environment: LOCAL_MACHINE
+distributed_type: NO
+mixed_precision: bf16
+use_cpu: false
+deepspeed_config: null
+gpu_ids: "0"  # 只用第一张卡训练
+machine_rank: 0
+main_process_ip: null
+main_process_port: null

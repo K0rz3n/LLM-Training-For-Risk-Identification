@@ -1,0 +1,7 @@
+torch
+transformers>=4.36.0
+datasets
+peft
+accelerate
+bitsandbytes
+scikit-learn
