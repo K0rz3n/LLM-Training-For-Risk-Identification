@@ -5,6 +5,11 @@
 This project records the process of my Fine-tuning on Qwen3-8B to implement the classification task of common security risks in dockerfile
 
 
+## Architecture
+
+![training_architecture](./images/training_architecture.png)
+
+
 ## Training Techniques
 
 | Technique | Implementation | Explanation |
