@@ -45,7 +45,7 @@ By extracting and mapping rules from the most-used open-source static-analysis t
 
 ![risk_types](./images/risk_types.png)
 
-After evaluating **40 000** samples, I selected the **top 10 risk categories** as the targets for this training task.
+After evaluating **40 000** samples, I selected the **top 11 risk categories** as the targets for this training task.
 
 ### Training-Data Labelling
 
@@ -83,6 +83,6 @@ Based on the above analysis, I think we can optimize from the following two aspe
 
 - **Data quality**: Improve data quality and scaling up the model.  
 - **Architecture comparison**: Evaluate Transformer-based Encoder-only or Encoder-Decoder (seq2seq) models against the current Decoder-only Qwen-3.
-- **More risk coverage:**  Due to time constraints and the limitations of manual labeling efforts, only 10 high-frequency risk categories were covered this time. However, after my analysis, I found that these 10 risk categories are relatively easy to detect with rule-based methods, which fails to fully demonstrate the advantages of LLMs in contextual understanding. This is one of the main reasons for the similar final accuracy rates. In the future, if more risks are to be covered, priority will be given to covering vulnerability types that rely on long-distance contextual associations.
+- **More risk coverage:**  Due to time constraints and the limitations of manual labeling efforts, only 11 high-frequency risk categories were covered this time. However, after my analysis, I found that these 11 risk categories are relatively easy to detect with rule-based methods, which fails to fully demonstrate the advantages of LLMs in contextual understanding. This is one of the main reasons for the similar final accuracy rates. In the future, if more risks are to be covered, priority will be given to covering vulnerability types that rely on long-distance contextual associations.
 
 I believe AI will continue to surprise us with its capabilities in security scanning.

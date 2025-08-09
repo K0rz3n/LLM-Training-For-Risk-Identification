@@ -24,31 +24,37 @@ class DataCollatorForCausalLMWithAssistantMask:
         self.assistant_start_token_id = self.tokenizer.convert_tokens_to_ids("<|im_start|>")
         self.assistant_role_token_id = self.tokenizer.convert_tokens_to_ids("assistant")
 
+    
+    #features = [
+    #{"input_ids": [...], "attention_mask": [...], "labels": [...]},
+    #{"input_ids": [...], "attention_mask": [...], "labels": [...]}, 
+    #]
+
     def __call__(self, features):
-        # 提取 labels
+        # 提取 labels, 避免被默认的 collator 进行 0 值 padding, 后续根据模型的特性和我们的需求单独进行padding处理
         labels = [feature.pop("labels") for feature in features]
 
-        # collate其他input_ids和attention_mask
+        # 对 input_ids 和 attention_mask 进行 padding 
         batch = self.default_collator(features)
-
+       
         max_len = batch["input_ids"].shape[1]
         padded_labels = []
-
         for input_ids, label in zip(batch["input_ids"], labels):
-            # Padding
+            # 根据模型的要求，手动对 labels 进行 padding成 -100
             padding_len = max_len - len(label)
             label = label + [-100] * padding_len
 
             keep_mask = [False] * len(label)
             found_assistant = False
-
+            
+            # 指定根据什么范围进行 loss计算，将 assistant 之后mask 设置为True
             for i in range(len(label) - 1):
                 if (input_ids[i] == self.assistant_start_token_id and input_ids[i + 1] == self.assistant_role_token_id):
                     found_assistant = True
                 if found_assistant:
                     keep_mask[i] = True
 
-            # 根据keep_mask生成最终label
+            # 根据keep_mask生成最终label,只保留 assistant 后面的 label, 其余位置设置为 -100, 这样计算loss时候会被忽略
             filtered_label = [
                 l if keep else -100
                 for l, keep in zip(label, keep_mask)
@@ -209,6 +215,7 @@ if __name__ == "__main__":
     train_dataset = load_dataset("json", data_files="../data/trainning_data/qwen_train.jsonl")["train"]
     val_dataset = load_dataset("json", data_files="../data/trainning_data/qwen_val.jsonl")["train"]
 
+    # 生成 features
     train_dataset = train_dataset.map(chatml_preprocess, remove_columns=train_dataset.column_names)
     val_dataset = val_dataset.map(chatml_preprocess, remove_columns=val_dataset.column_names)
 
