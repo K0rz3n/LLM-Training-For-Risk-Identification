@@ -45,7 +45,7 @@ By extracting and mapping rules from the most-used open-source static-analysis t
 
 ![risk_types](./images/risk_types.png)
 
-After evaluating **40 000** samples, I selected the **top 11 risk categories** as the targets for this training task.
+After evaluating **40 000** samples, I selected the **top 10 risk categories** as the targets for this training task.
 
 ### Training-Data Labelling
 
