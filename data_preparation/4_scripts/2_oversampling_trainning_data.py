@@ -50,7 +50,7 @@ def oversample_rare_labels(dataset, rare_labels, label_counter, freq_threshold=1
 def balance_multilabel_dataset(dataset, freq_threshold=1000, target_per_label=1000):
     label_counts = compute_label_freq(dataset)
     rare_labels = get_rare_labels(label_counts, threshold=freq_threshold)
-    print(f"📉 稀有标签数: {len(rare_labels)}")
+    print(f"稀有标签数: {len(rare_labels)}")
     return oversample_rare_labels(dataset, rare_labels, label_counts, freq_threshold, target_per_label)
 
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     balanced_dataset = balance_multilabel_dataset(train_dataset)
 
-        # 将 HuggingFace Dataset 转为 pandas DataFrame
+    # 将 HuggingFace Dataset 转为 pandas DataFrame
     df = balanced_dataset.to_pandas()
 
     # 保存为数组形式的 JSON（列表而非 jsonl）
